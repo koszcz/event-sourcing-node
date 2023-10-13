@@ -1,0 +1,9 @@
+{
+  "name": "es",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@eventstore/db-client": "^6.0.0"
+  }
+}
