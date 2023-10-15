@@ -1,6 +1,6 @@
-import { Customer } from "./customers/customer";
-import { CustomerEvent } from "./customers/events";
-import { Repository } from "./lib/repository";
+import { Customer } from "./customers/customer.js";
+import { CustomerEvent } from "./customers/events.js";
+import { Repository } from "./lib/repository.js";
 
 async function letsProduceACustomer() {
   const customer = new Customer("3");
@@ -24,5 +24,5 @@ async function letsFinishACustomer() {
   customer.print();
 }
 
-// letsProduceACustomer();
+letsProduceACustomer();
 // letsFinishACustomer();

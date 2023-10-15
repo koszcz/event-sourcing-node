@@ -16,9 +16,11 @@ export class Repository<A extends Aggregate<E>, E extends JSONEventType> {
     try {
       const events = this.client.readStream<E>(instance.streamName());
       for await (const event of events) {
-        // @ts-ignore
-        instance.on(event.event);
-        this.lastEventRevision = event.event.revision;
+        if (event.event) {
+          // @ts-ignore
+          instance.on(event.event);
+          this.lastEventRevision = event.event.revision;
+        }
       }
     } catch (e: any) {
       if (e.type === "stream-not-found") {
