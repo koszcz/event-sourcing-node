@@ -1,4 +1,4 @@
-import { jsonEvent } from "@eventstore/db-client";
+import { JSONEventData, jsonEvent } from "@eventstore/db-client";
 import { Aggregate } from "../lib/aggregate";
 import type {
   CustomerEvent,
@@ -46,7 +46,7 @@ export class Customer extends Aggregate<CustomerEvent> {
     );
   }
 
-  on(event: CustomerEvent) {
+  on(event: JSONEventData<CustomerEvent>) {
     switch (event.type) {
       case "customer-registered":
         this.state.push("registered");

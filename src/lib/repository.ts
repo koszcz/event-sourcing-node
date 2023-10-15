@@ -1,4 +1,4 @@
-import { JSONEventType, EventStoreDBClient } from "@eventstore/db-client";
+import { EventStoreDBClient, JSONEventType } from "@eventstore/db-client";
 import { Aggregate } from "./aggregate";
 
 export class Repository<A extends Aggregate<E>, E extends JSONEventType> {
@@ -14,7 +14,8 @@ export class Repository<A extends Aggregate<E>, E extends JSONEventType> {
 
   async load(instance: A): Promise<void> {
     try {
-      const events = this.client.readStream<E>(instance.streamName());
+      const events = this.client.readStream(instance.streamName());
+
       for await (const event of events) {
         if (event.event) {
           // @ts-ignore
@@ -30,9 +31,8 @@ export class Repository<A extends Aggregate<E>, E extends JSONEventType> {
   }
 
   async store(instance: A) {
-    await this.client.appendToStream(
+    await this.client.appendToStream<JSONEventType>(
       instance.streamName(),
-      // @ts-ignore
       instance.events,
       {
         expectedRevision: this.lastEventRevision,

@@ -1,13 +1,16 @@
-import type { JSONEventType } from "@eventstore/db-client/dist/types/events";
+import type {
+  JSONEventData,
+  JSONEventType,
+} from "@eventstore/db-client/dist/types/events";
 
 export abstract class Aggregate<E extends JSONEventType> {
-  public events: E[] = [];
+  public events: JSONEventData<E>[] = [];
 
-  apply(event: E) {
+  apply(event: JSONEventData<E>) {
     this.events.push(event);
     this.on(event);
   }
 
-  abstract on(event: E): void;
+  abstract on(event: JSONEventData<E>): void;
   abstract streamName(): string;
 }
