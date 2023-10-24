@@ -1,6 +1,7 @@
 import { Customer } from "./customers/customer.js";
 import { CustomerEvent } from "./customers/events.js";
 import { Repository } from "./lib/repository.js";
+import { runServer } from "./web/index.js";
 
 async function letsProduceACustomer() {
   const customer = new Customer("3");
@@ -24,5 +25,7 @@ async function letsFinishACustomer() {
   customer.print();
 }
 
-letsProduceACustomer();
+// letsProduceACustomer();
 // letsFinishACustomer();
+
+runServer();
