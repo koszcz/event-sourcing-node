@@ -62,8 +62,4 @@ export class Customer extends Aggregate<CustomerEvent> {
   streamName() {
     return `customer-${this.id}`;
   }
-
-  print() {
-    console.log(this.state);
-  }
 }

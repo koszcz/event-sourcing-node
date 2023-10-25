@@ -1,15 +1,13 @@
 import { EventStoreDBClient, JSONEventType } from "@eventstore/db-client";
 import { Aggregate } from "./aggregate";
+import { client } from "./event_store_client";
 
 export class Repository<A extends Aggregate<E>, E extends JSONEventType> {
   private client: EventStoreDBClient;
   private lastEventRevision: bigint | undefined = undefined;
 
   constructor() {
-    this.client = new EventStoreDBClient(
-      { endpoint: "localhost:2113" },
-      { insecure: true }
-    );
+    this.client = client;
   }
 
   async load(instance: A): Promise<void> {
